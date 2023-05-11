@@ -1,0 +1,77 @@
+MySQL Shell 8.0.32
+
+Copyright (c) 2016, 2023, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ****
+Save password for 'root@localhost'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.32 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > \use eva_3
+Default schema set to `eva_3`.
+Fetching global names, object names from `eva_3` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  eva_3  SQL > create table personas( id int primary key auto_increment, nombre varchar not null, apellido_pat varchar(50) not null, apellido_mat varchar(50), fecha_nac date, calave_rfc varchar(13));
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not null, apellido_pat varchar(50) not null, apellido_mat varchar(50), fecha_nac' at line 1
+ MySQL  localhost:3306 ssl  eva_3  SQL > create table personas( id int primary key auto_increment, nombre varchar(50) not null, apellido_pat varchar(50) not null, apellido_mat varchar(50), fecha_nac date, calave_rfc varchar(13));
+Query OK, 0 rows affected (0.1061 sec)
+ MySQL  localhost:3306 ssl  eva_3  SQL > show tables;
++-----------------+
+| Tables_in_eva_3 |
++-----------------+
+| actor           |
+| fechas          |
+| personas        |
++-----------------+
+3 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  eva_3  SQL > desc personas;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| id           | int         | NO   | PRI | NULL    | auto_increment |
+| nombre       | varchar(50) | NO   |     | NULL    |                |
+| apellido_pat | varchar(50) | NO   |     | NULL    |                |
+| apellido_mat | varchar(50) | YES  |     | NULL    |                |
+| fecha_nac    | date        | YES  |     | NULL    |                |
+| calave_rfc   | varchar(13) | YES  |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.0019 sec)
+ MySQL  localhost:3306 ssl  eva_3  SQL > INSERT INTO personas (nombre, apellido_pat, apellido_mat, fecha_nac)
+                                      -> VALUES
+                                      ->     ('Juan', 'Perez', 'Jolote', '1975-11-23'),
+                                      ->     ('Maria', 'Hernandez', 'Gonzales', '1982-06-05'),
+                                      ->     ('Pedro', 'Martinez', 'Sanchez', '1990-03-17'),
+                                      ->     ('Marissa', 'Hernandez', 'Payares', '1987-12-28'),
+                                      ->     ('Luis', 'Soto', 'Hernandez', '1984-09-10'),
+                                      ->     ('Sofia', 'Castillo', 'Perez', '1995-02-14'),
+                                      ->     ('Jorge', 'Torres', 'Mendoza', '1978-08-22'),
+                                      ->     ('Marta', 'Jimenez', 'Gomez', '1992-11-30'),
+                                      ->     ('Carlos', 'Guzman', NULL, '1989-05-09'),
+                                      ->     ('Laura', 'Lopez', 'Diaz', '1986-04-12');
+Query OK, 10 rows affected (0.0671 sec)
+
+Records: 10  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  eva_3  SQL > select * from personas;
++----+---------+--------------+--------------+------------+------------+
+| id | nombre  | apellido_pat | apellido_mat | fecha_nac  | calave_rfc |
++----+---------+--------------+--------------+------------+------------+
+|  1 | Juan    | Perez        | Jolote       | 1975-11-23 | NULL       |
+|  2 | Maria   | Hernandez    | Gonzales     | 1982-06-05 | NULL       |
+|  3 | Pedro   | Martinez     | Sanchez      | 1990-03-17 | NULL       |
+|  4 | Marissa | Hernandez    | Payares      | 1987-12-28 | NULL       |
+|  5 | Luis    | Soto         | Hernandez    | 1984-09-10 | NULL       |
+|  6 | Sofia   | Castillo     | Perez        | 1995-02-14 | NULL       |
+|  7 | Jorge   | Torres       | Mendoza      | 1978-08-22 | NULL       |
+|  8 | Marta   | Jimenez      | Gomez        | 1992-11-30 | NULL       |
+|  9 | Carlos  | Guzman       | NULL         | 1989-05-09 | NULL       |
+| 10 | Laura   | Lopez        | Diaz         | 1986-04-12 | NULL       |
++----+---------+--------------+--------------+------------+------------+
+10 rows in set (0.0005 sec)
+ MySQL  localhost:3306 ssl  eva_3  SQL >
